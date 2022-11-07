@@ -8,10 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
   private Long id;
+  private String name;
   private String description;
   private Float price;
   private String purchase;
@@ -22,8 +23,9 @@ public class Product {
   public Product(){
   }
 
-  public Product(Long id, String description, Float price, String purchase, String category, Integer quantity){
+  public Product(Long id, String  name, String description, Float price, String purchase, String category, Integer quantity){
     this.id = id;
+    this.name = name;
     this.description = description;
     this.price = price;
     this.purchase = purchase;
@@ -39,6 +41,15 @@ public class Product {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  @Column(name = "name", nullable = false)
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Column(name = "description", nullable = false)
