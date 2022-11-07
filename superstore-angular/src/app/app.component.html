@@ -1,3 +1,46 @@
+
+<!-- Add Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddProduct(addForm)">
+          <div class="form-group">
+             <label for="name">Description</label>
+             <input type="text" ngModel name="description" class="form-control" id="description" placeholder="description" required>
+          </div>
+          <div class="form-group">
+             <label for="email">Price</label>
+             <input type="email" ngModel name="price" class="form-control" id="price" placeholder="price" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Purchase</label>
+             <input type="text" ngModel name="purchase" class="form-control" id="purchase" placeholder="purchase" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Category</label>
+             <input type="text" ngModel name="category" class="form-control" id="category" placeholder="category" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Quantity</label>
+             <input type="text" ngModel name="quantity" class="form-control" id="quantity" placeholder="quantity" required>
+          </div>
+          <div class="modal-footer">
+             <button type="button" id="add-product-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+
 <!-- Edit Modal -->
 <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
