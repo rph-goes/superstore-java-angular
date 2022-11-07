@@ -1,3 +1,14 @@
+  public getProducts(): void {
+    this.productService.getProducts().subscribe(
+      (response: Product[]) => {
+        this.products = response;
+        console.log(this.products);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 
   public onAddProduct(addForm: NgForm): void {
     document.getElementById('add-product-form').click();
