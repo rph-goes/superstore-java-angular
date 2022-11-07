@@ -1,3 +1,27 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Product } from './product';
+import { ProductService } from './product.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit{
+  title = 'superstore-angular';
+
+  public products!: Product[];
+  public editProduct!: Product;
+  public deleteProduct!: Product;
+
+  constructor(private productService: ProductService){}
+
+  ngOnInit(): void {
+    this.getProducts();
+  }
+
   public getProducts(): void {
     this.productService.getProducts().subscribe(
       (response: Product[]) => {
@@ -36,6 +60,7 @@
       }
     );
   }
+
   public searchProducts(key: string): void {
     console.log(key);
     const results: Product[] = [];
@@ -59,6 +84,7 @@
       }
     );
   }
+
   public onOpenModal(product: Product|null, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
