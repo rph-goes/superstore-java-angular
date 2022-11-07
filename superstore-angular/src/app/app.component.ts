@@ -1,3 +1,19 @@
+
+  public onAddProduct(addForm: NgForm): void {
+    document.getElementById('add-product-form').click();
+    this.productService.addProduct(addForm.value).subscribe(
+      (response: Product) => {
+        console.log(response);
+        this.getProducts();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+
   public onUpdateProduct(product: Product): void {
     this.productService.updateProduct(product).subscribe(
       (response: Product) => {
