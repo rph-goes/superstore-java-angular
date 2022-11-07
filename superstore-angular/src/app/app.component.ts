@@ -1,3 +1,14 @@
+  public onUpdateProduct(product: Product): void {
+    this.productService.updateProduct(product).subscribe(
+      (response: Product) => {
+        console.log(response);
+        this.getProducts();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
   public searchProducts(key: string): void {
     console.log(key);
     const results: Product[] = [];
