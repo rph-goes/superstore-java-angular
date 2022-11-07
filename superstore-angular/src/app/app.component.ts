@@ -1,3 +1,15 @@
+  public searchProducts(key: string): void {
+    console.log(key);
+    const results: Product[] = [];
+    for (const product of this.products) {
+      if (product.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || product.category.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(product);
+      }
+    }
+    this.products = results;
+  }
+
   public onDeleteProduct(productId: number): void {
     this.productService.deleteProduct(productId).subscribe(
       (response: void) => {
