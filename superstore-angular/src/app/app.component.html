@@ -1,3 +1,46 @@
+<!-- Edit Modal -->
+<div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateProductModalLabel">Edit Product </h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="name">Description</label>
+                 <input type="text" ngModel="{{editProduct?.description}}" name="description" class="form-control" id="description" aria-describedby="emailHelp" placeholder="Name">
+              </div>
+              <input type="hidden" ngModel="{{editProduct?.id}}" name="id" class="form-control" id="id" placeholder="id">
+              <div class="form-group">
+                 <label for="email">Price</label>
+                 <input type="text" ngModel="{{editProduct?.price}}" name="price" class="form-control" id="price" placeholder="price">
+              </div>
+              <div class="form-group">
+                 <label for="phone">Purchase</label>
+                 <input type="text" ngModel="{{editProduct?.purchase}}" name="purchase" class="form-control" id="purchase" placeholder="purchase">
+              </div>
+              <div class="form-group">
+                 <label for="phone">Category</label>
+                 <input type="text" ngModel="{{editProduct?.category}}" name="category" class="form-control" id="category" name="category" placeholder="category">
+              </div>
+              <div class="form-group">
+                 <label for="phone">Quantity</label>
+                 <input type="text" ngModel="{{editProduct?.quantity}}" name="quantity" class="form-control" id="quantity" placeholder="quantity">
+              </div>
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateProduct(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
 <!-- Update Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
