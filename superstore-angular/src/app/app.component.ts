@@ -26,7 +26,6 @@ export class AppComponent implements OnInit{
     this.productService.getProducts().subscribe(
       (response: Product[]) => {
         this.products = response;
-        console.log(this.products);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit{
     document.getElementById('add-product-form').click();
     this.productService.addProduct(addForm.value).subscribe(
       (response: Product) => {
-        console.log(response);
         this.getProducts();
         addForm.reset();
       },
@@ -52,7 +50,6 @@ export class AppComponent implements OnInit{
   public onUpdateProduct(product: Product): void {
     this.productService.updateProduct(product).subscribe(
       (response: Product) => {
-        console.log(response);
         this.getProducts();
       },
       (error: HttpErrorResponse) => {
@@ -62,10 +59,9 @@ export class AppComponent implements OnInit{
   }
 
   public searchProducts(key: string): void {
-    console.log(key);
     const results: Product[] = [];
     for (const product of this.products) {
-      if (product.description.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      if (product.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
       || product.category.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(product);
       }
@@ -76,7 +72,6 @@ export class AppComponent implements OnInit{
   public onDeleteProduct(productId: number): void {
     this.productService.deleteProduct(productId).subscribe(
       (response: void) => {
-        console.log(response);
         this.getProducts();
       },
       (error: HttpErrorResponse) => {
