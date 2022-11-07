@@ -55,6 +55,10 @@ height="900"
                     Em estoque: {{product?.quantity}}
                   </div>
 
+                  <div class="small m-t-xs">
+                     Data da compra: {{product?.purchase}}
+                   </div>
+
                   <div class="m-t text-righ" style="margin-top: 15px;">
                     <a (click)="onOpenModal(product, 'edit')" class="btn btn-outline-secondary" style="margin-right: 90px;" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil-square-o"></i> </a>
                     <a (click)="onOpenModal(product, 'delete')" class="btn btn-outline-secondary" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
