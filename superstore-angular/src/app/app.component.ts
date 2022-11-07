@@ -1,3 +1,14 @@
+  public onDeleteProduct(productId: number): void {
+    this.productService.deleteProduct(productId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getProducts();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
   public onOpenModal(product: Product|null, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
