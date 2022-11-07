@@ -2,9 +2,9 @@ package com.example.hexagonal.superstore.controller;
 
 import com.example.hexagonal.superstore.exception.ResourceNotFoundException;
 import com.example.hexagonal.superstore.model.Product;
-import com.example.hexagonal.superstore.repository.ProductRepository;
+import com.example.hexagonal.superstore.service.ProductService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,62 +16,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
 
 @RestController @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/product")
 public class ProductController {
 
-  @Autowired
-  private ProductRepository productRepository;
+  private final ProductService productService;
 
-  @GetMapping("/products")
-  public List<Product> getAllProducts() {
-    return productRepository.findAll();
+  public ProductController(ProductService productService) {
+      this.productService = productService;
   }
 
-  @GetMapping("/product/{id}")
-  public ResponseEntity < Product > getProductById(@PathVariable(value = "id") Long productId)
-    throws ResourceNotFoundException {
-    Product product = productRepository.findById(productId)
-      .orElseThrow(() -> new ResourceNotFoundException("Product not found :: " + productId));
-    return ResponseEntity.ok().body(product);
+  @GetMapping("/all")
+  public ResponseEntity<List<Product>> getAllProducts() {
+    List<Product> products = productService.findAllProducts();
+    return new ResponseEntity<>(products, HttpStatus.OK);
   }
 
-  @PostMapping("/create/product")
-  public Product createRoom(@Valid @RequestBody Product product) {
-    return productRepository.save(product);
+  @GetMapping("/find/{id}")
+  public ResponseEntity<Product> getProductById (@PathVariable("id") Long id) throws ResourceNotFoundException {
+    Product product = productService.findProductById(id);
+    return new ResponseEntity<>(product, HttpStatus.OK);
   }
 
-  @PutMapping("/product/{id}")
-  public ResponseEntity < Product > updateRoom(@PathVariable(value = "id") Long productId,
-                                                    @Valid @RequestBody Product productDetails) throws ResourceNotFoundException {
-    Product product = productRepository.findById(productId)
-      .orElseThrow(() -> new ResourceNotFoundException("product not found for this id :: " + productId));
-
-    product.setDescription(productDetails.getDescription());
-    product.setPrice(productDetails.getPrice());
-    product.setPurchase(productDetails.getPurchase());
-    product.setCategory(productDetails.getCategory());
-    product.setQuantity(productDetails.getQuantity());
-
-    final Product updateProduct = productRepository.save(product);
-    return ResponseEntity.ok(updateProduct);
+  @PostMapping("/add")
+  public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    Product newProduct = productService.addProduct(product);
+      return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
   }
 
-  @DeleteMapping("/product/{id}")
-  public Map < String, Boolean > deleteProduct(@PathVariable(value = "id") Long productId)
-    throws ResourceNotFoundException {
-    Product product = productRepository.findById(productId)
-      .orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + productId));
+  @PutMapping("/update")
+  public ResponseEntity<Product> updateEmployee(@RequestBody Product product) {
+    Product updateProduct = productService.updateProduct(product);
+    return new ResponseEntity<>(updateProduct, HttpStatus.OK);
+  }
 
-    productRepository.delete(product);
-    Map< String, Boolean > response = new HashMap< >();
-    response.put("deleted", Boolean.TRUE);
-    return response;
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
+    productService.deleteProduct(id);
+      return new ResponseEntity<>(HttpStatus.OK);
   }
 }
